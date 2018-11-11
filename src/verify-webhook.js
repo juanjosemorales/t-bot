@@ -1,6 +1,5 @@
 const verifyWebhook = (req, res) => {
 
-  console.log("HERE");
   let VERIFY_TOKEN = 'tbot'
 
   let mode = req.query['hub.mode'];

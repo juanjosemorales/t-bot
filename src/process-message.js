@@ -19,7 +19,6 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 const {FACEBOOK_ACCESS_TOKEN} = process.env;
 
-
 const sendTextmessage = (userId, text) => {
   console.log(userId);
   console.log(text);
