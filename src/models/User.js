@@ -20,7 +20,16 @@ var UserSchema = new Schema({
    },
    default_rate: {
      type: Number,
-     required: true
+     required: true,
+     min: 0.0,
+     max: 100
+   },
+   education: {
+     type: String,
+     trim: true
+   },
+   tutoring_specialties: {
+     type: [String]
    }
 });
 

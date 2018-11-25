@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true }));
 
 //MongoDB Connection
-var mongoConnection = "mongodb://localhost:27017/tbot";
+var mongoConnection = "mongodb://tbot:tbot123@ds151382.mlab.com:51382/tbot";
 mongoose.connect(mongoConnection, {useNewUrlParser:true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;

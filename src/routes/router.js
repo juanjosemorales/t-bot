@@ -14,7 +14,7 @@ router.get('/signup', (req, res, next) => {
   res.sendFile(_path + "signup.html");
 });
 
-//handle registration
+//handle user registration
 router.post('/signup', (req, res, next) => {
   res.sendFile(_path + "index.html");
   if(req.body.email && req.body.password) {
@@ -26,21 +26,20 @@ router.post('/signup', (req, res, next) => {
          default_rate = req.body.defaultRate;
       }
     }
-
     var userData = {
         email: req.body.email,
         password: req.body.password,
         is_tutor: is_tutor,
-        default_rate: default_rate
+        default_rate: default_rate,
+        tutoring_specialties: req.body.specialites,
+        education: req.body.education
     };
-    
-    User.create(userData, (error, user) => {
+    var new_user = new User(userData);
+    new_user.save( (error) => {
       if(error) {
         return next(error);
-      }else {
-        return res.redirect('/')
-      }
-    });
+      }});
+    res.redirect('/');
   };
 });
 

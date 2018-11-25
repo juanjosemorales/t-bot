@@ -41,8 +41,9 @@
   </nav>
 </div>
 <br/>
-<div class="jumbotron" stype="text-align:center;"> <p>
-T-Bog - Online Tutoring platform</p></div>
+<div class="jumbotron">
+  <h1 class="display 3" align="center">T-Bot - Online Tutoring Platform</p>
+</div>
 <div>
 <form class="form-horizontal" action="" method="post" role="form" style="width: 25%; margin: 0 auto;">
   <legend>Signup</legend>
@@ -67,6 +68,28 @@ T-Bog - Online Tutoring platform</p></div>
       <div class="form-group">
         <label> </label>
         <input class="form-control" name="defaultRate" id="defaultRate" placeholder="Default 30 Min Session Rate (USD)" type="number">
+      </div>
+      <div class="form-group">
+        <label for="education">Highest Level of Education</label>
+        <select class="form-control" name="education" id="education">
+          <option>High School</option>
+          <option>Undergraduate Degree</option>
+          <option>Masters Degree</option>
+          <option>Doctoral Degree</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="specialties">Choose Tutoring Areas</label>
+        <select multiple="" class="form-control" name="specialites" id="specialties">
+          <option>Biology</option>
+          <option>Computer Science</option>
+          <option>Engineering</option>
+          <option>English</option>
+          <option>History</option>
+          <option>Math</option>
+          <option>Physics</option>
+          <option>Other</option>
+        </select>
       </div>
     </fieldset>
     <button type="submit" class="btn btn-primary">Submit</button>
