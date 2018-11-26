@@ -1,0 +1,38 @@
+extends base.pug
+
+block content
+  - var education_values = ['High School', 'Undergrad', 'Masters', 'PhD'];
+  - var tutoring_areas = ['Biology','Computer Science','Engineering','English','History','Math','Physics','Other'];
+  form.form-horizontal(action="/signup" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
+    fieldset
+      legend Sign Up
+      .form-group
+        label(for="email") Email Address
+        input.form-control( name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" type="email")
+        small.form-text.text-muted We'll never share your email with anyone else
+      .form-group
+        label(for="password") Password
+        input.form-control(name="password" id="password" placeholder="Password" type="password")
+    fieldset
+      legend Do You Want to Tutor?
+      .form-group
+        select.form-control(name="tutorCheck", id="tutorCheck")
+          option Yes
+          option No
+      .form-group
+        input.form-control(name="defaultRate" id="defaultRate" placeholder="Default 30 Min Session Rate (USD)" type="number")
+      .form-group
+        label(for="education") Highest Level of Education
+        select.form-control(name="education" id="education")
+          each val in education_values
+            option= val
+      .form-group
+        label(for="specialties") Choose Tutoring Areas
+        select.form-control(multiple="" name="specialites" id="specialites")
+          each val in tutoring_areas
+            option= val
+    button.btn.btn-primary(type="submit") Send 
+    
+           
+          
+          

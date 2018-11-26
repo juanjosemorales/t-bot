@@ -1,0 +1,11 @@
+extends base.pug
+      
+block content
+  .form.form-horizontal(role="form" stype="width: 50%;")
+    .form-group
+      label.col-sm-2.control-label(for="subject" class="col-sm-2 control-label") Subject
+      .col-sm-10
+        input(type="text" class="form-control" id="subject" name="subject" placeholder="Physics, Math, Bio etc." value="")
+      label.col-sm-2.control-label(for="subject" class="col-sm-2 control-label") I Need Help For:
+      .col-sm-10
+        input(type="number" class="form-control" id="email" name="email" placeholder="30 minutes" value="")

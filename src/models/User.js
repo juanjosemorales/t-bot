@@ -33,5 +33,22 @@ var UserSchema = new Schema({
    }
 });
 
+UserSchema.statics.authenticate = function (email, password, callback) {
+  User.findOne({email: email}).exec( (err, user) => {
+    if(err) {
+      return callback(err)
+    } else if (!user) {
+      var err = new Error('User not found.');
+      err.status = 401;
+      return callback(err);
+    }
+    if(user.password === password) {
+      return callback(null, user);
+    } else {
+      return callback();
+    }
+  });
+};
+
 var User = mongoose.model('User', UserSchema);
 module.exports = User;
