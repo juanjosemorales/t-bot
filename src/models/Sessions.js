@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var SessionSchema = new Schema(
   {
-    id: String,
-    expires: String
+    expires: String,
+    session: String
   },
   {
     collection: 'sessions'

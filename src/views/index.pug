@@ -1,11 +1,28 @@
 extends base.pug
       
 block content
-  .form.form-horizontal(role="form" stype="width: 50%;")
-    .form-group
-      label.col-sm-2.control-label(for="subject" class="col-sm-2 control-label") Subject
-      .col-sm-10
-        input(type="text" class="form-control" id="subject" name="subject" placeholder="Physics, Math, Bio etc." value="")
-      label.col-sm-2.control-label(for="subject" class="col-sm-2 control-label") I Need Help For:
-      .col-sm-10
-        input(type="number" class="form-control" id="email" name="email" placeholder="30 minutes" value="")
+  - var education_values = ['High School', 'Undergrad', 'Masters', 'PhD', 'Life Long Learner'];
+  - var tutoring_areas = ['Biology','Computer Science','Engineering','English','History','Math','Physics','Other'];
+  - var time_sessions = {'30':30,'45':45,'1 hr':60, '1.5 hrs':90, '2 hrs':120, "I don't know":8};
+  form.form-horizontal(action="/tutors" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
+    fieldset
+      .form-group
+        label(for="specialties") I need help with ...
+        select.form-control(multiple="" name="specialites" id="specialites")
+          each val in tutoring_areas
+            option= val
+      .form-group
+        label(for="education") Need  help for at least ...
+        select.form-control(name="education" id="education")
+          each val, key in time_sessions
+            option= key
+      .form-group
+        label(for="education") Are you in?
+        select.form-control(name="education" id="education")
+          each val in education_values
+            option= val
+    fieldset
+      .form-group
+        label(for="question") Type in your question or anything specific you want your tutor to know!
+        textarea.form-control(name="question", id="question", rows="5")
+    button.btn.btn-primary(type="submit") Send 

@@ -1,3 +1,6 @@
+block variables
+  - var selected = 'Home';
+  
 html
   head
     title Tutoring App 
@@ -9,12 +12,11 @@ html
       block nav
         - var main_menu = {'Home':'/', 'Workspace': '/workspace', 'Account':'/account', 'Contact': '/contact'};
         - var s_menu = {'Sign Up': '/signup', 'Log In': '/login', 'Log Out': '/logout'};
-        - var selected = 'Home';
         .navbar.navbar-expand-lg.navbar-dark.bg-primary
           a.navbar-brand(href="#") T-Bot
           button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation")
             span.navbar-toggler-icon
-          .collapse.navbar-collapse(id="navbarColor01")
+          .navbar-collapse.collapse.show(id="navbarColor01" style="")
             ul.navbar-nav.mr-auto
               each val,key in main_menu
                   if selected === key
