@@ -1,21 +1,21 @@
 extends base.pug
       
 block content
-  - var education_values = ['High School', 'Undergrad', 'Masters', 'PhD', 'Life Long Learner'];
+  - var education_values = ['High School', 'Undergrad', 'Masters', 'PhD', 'Life Long '];
   - var tutoring_areas = ['Biology','Computer Science','Engineering','English','History','Math','Physics','Other'];
-  - var time_sessions = {'30':30,'45':45,'1 hr':60, '1.5 hrs':90, '2 hrs':120, "I don't know":8};
+  - var time_sessions = {'30':30,'45':45,'1 hr':60, '1.5 hrs':90, '2 hrs':120, "I don't know":'NaN'};
   form.form-horizontal(action="/tutors" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
     fieldset
       .form-group
         label(for="specialties") I need help with ...
-        select.form-control(multiple="" name="specialites" id="specialites")
+        select.form-control(name="specialties" id="specialties")
           each val in tutoring_areas
             option= val
       .form-group
-        label(for="education") Need  help for at least ...
-        select.form-control(name="education" id="education")
+        label(for="time_sessions") Need  help for at least ...
+        select.form-control(name="time_sessions" id="time_sessions")
           each val, key in time_sessions
-            option= key
+            option(value= val)= key
       .form-group
         label(for="education") Are you in?
         select.form-control(name="education" id="education")

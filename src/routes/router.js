@@ -8,28 +8,51 @@ var _path = path.join(__dirname + '/../' + '/views/');
 console.log(_path);
 
 
-//TODO: Fix Nested Callbacks
+//TODO: Fix Nested Callback and Refactor
 router.post('/tutors', (req,res, next) => {
 
   Sessions.find({}, (err, data) => {
     if(err) {
       return(next(err));
     } else {
+        console.log(req.body);
+        tutor_list = [];
+        logged_in = 0;
         if(data.length > 0) {
-           tutor_list = []
-           logged_in = data.length
-           for( sess in data) {
-             tutor_list.push({
-                "userName":JSON.parse(data[sess]._doc.session).userName,
-                "defaultRate": JSON.parse(data[sess]._doc.session).defaultRate,
-                "userSpecialties":JSON.parse(data[sess]._doc.session).userSpecialties
-             });
-           }
-        } else {
-           logged_in = 0;
-           tutor_list = [];
-        }
+           logged_in = data.length;
+           for (sess in data) {
+               /**
+                Calculate Rate data from the Tutor's default rate
+                rate = tutors's minute default rate * user's expected time selection
+               **/
+               rate_per_min = JSON.parse(data[sess]._doc.session).defaultRate / 30;
+               if (req.body.time_sessions === 'NaN') {
+                 rate = 'contact for hourly rate';
+               } else {
+                 rate = '$' + (rate_per_min * req.body.time_sessions);
+               }
 
+              // Match the user's topic with tutor's specialties
+              check = JSON.parse(data[sess]._doc.session).userSpecialties;
+              if (typeof check === 'string') {
+                tutoring_specialties = [check];
+              } else {
+                tutoring_specialties = check;
+              }
+              console.log(tutoring_specialties);
+              if (req.body.specialties) {
+                user_topic = req.body.specialties
+                console.log(user_topic);
+                if (tutoring_specialties.includes(user_topic)) {
+                     tutor_list.push({
+                        "userName":JSON.parse(data[sess]._doc.session).userName,
+                        "defaultRate": rate,
+                        "userSpecialties": tutoring_specialties
+                     });
+                }
+              }
+           }
+        }
         res.render(_path + "tutors.pug", {tutors: tutor_list, logged_in: logged_in});
     }
   });
