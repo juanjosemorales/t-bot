@@ -9,10 +9,14 @@ block header
 
 block content
   if display.logged_in
-    h4.display3(style="width: 25%; margin: 0 auto;") Tutoring Areas
-    each ta in display.specialties
-      .list-group(style="width: 25%; margin: 0 auto;")
-        a.list-group-item.list-group-item-action(href="#")= ta
+    .card.border-primary.mb-3(style="max-width: 20rem;margin: 0 auto;")
+      .card-header #{display.name}
+      .card-body
+        p.card-title Education: #{display.education}
+          p.card-text Tutors in: #{display.specialties}
+          p.card-test 30min Rate: $#{display.default_rate}
+          p.card-test Registered ITS: out of scope for this semester
+          
     hr.my-4
     form.form-horizontal(action="/account" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
       fieldset
@@ -24,4 +28,21 @@ block content
           select.form-control(multiple="" name="specialites" id="specialites")
             each val in tutoring_areas
               option= val
+        .form-group
+          label(for="education") Highest Level of Education
+          select.form-control(name="education" id="education")
+            each val in education_values
+              option= val
       button.btn.btn-primary(type="submit") Update Account
+    hr.my-4
+    form.form-horizontal(action="#" method="POST" role="form" style="width: 25%; margin: 0 auto;")
+      fieldset
+        legend Form for ITS Registration - Out of Scope for Semester
+        .form-group
+          label(for="name") ITS Name
+          input.form-control(name="name" id="name" type="text")
+        .form-group
+          label(for="email") ITS Metadata
+          textarea.form-control(name="question", id="question", rows="5")
+
+  

@@ -18,6 +18,8 @@ router.get('/account', (req, res, next) => {
       display = {
         logged_in: true,
         welcome_msg: "Hi " + user.name,
+        name: user.name,
+        education: user.education,
         default_rate: user.default_rate,
         specialties: user.tutoring_specialties
       }
@@ -30,7 +32,8 @@ router.post('/account', (req, res, next) => {
   if(req.session.userId) {
     var userData = {
         default_rate: req.body.defaultRate,
-        tutoring_specialties: req.body.specialites
+        tutoring_specialties: req.body.specialites,
+        education: req.body.education
     };
     User.findOneAndUpdate({'_id':req.session.userId}, userData, {new:true}, (err, user) => {
       if (err) {
@@ -40,7 +43,9 @@ router.post('/account', (req, res, next) => {
         logged_in: true,
         welcome_msg: "Account Updated Successfully!",
         default_rate: user.default_rate,
-        specialties: user.tutoring_specialties
+        specialties: user.tutoring_specialties,
+        name: user.name,
+        education: user.education
       }
       req.session.defaultRate = user.default_rate;
       req.session.userSpecialties = req.body.specialites;
