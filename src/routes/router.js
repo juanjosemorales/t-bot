@@ -7,26 +7,17 @@ var path = require('path');
 var _path = path.join(__dirname + '/../' + '/views/');
 console.log(_path);
 
-/*
-User.find({ '_id': { %in:
-   mongoose.Types.ObjectId()
- }
-});
-*/
 
 //TODO: Fix Nested Callbacks
 router.post('/tutors', (req,res, next) => {
-  //console.log(req.body)
+
   Sessions.find({}, (err, data) => {
     if(err) {
       return(next(err));
     } else {
-        //console.log(data);
-        //console.log(data.length);
         if(data.length > 0) {
            tutor_list = []
-           //console.log(data);
-           //console.log(typeof data);
+           logged_in = data.length
            for( sess in data) {
              tutor_list.push({
                 "userName":JSON.parse(data[sess]._doc.session).userName,
@@ -34,15 +25,24 @@ router.post('/tutors', (req,res, next) => {
                 "userSpecialties":JSON.parse(data[sess]._doc.session).userSpecialties
              });
            }
-           console.log({tutors: tutor_list});
         } else {
-           console.log("no sessions");
+           logged_in = 0;
+           tutor_list = [];
         }
 
-        res.render(_path + "tutors.pug", {tutors: tutor_list});
+        res.render(_path + "tutors.pug", {tutors: tutor_list, logged_in: logged_in});
     }
   });
 });
+
+/*
+for tutor in tutors
+  a.list-group-item.list-group-item-action.flex-column.align-items-start(style="width: 20%; margin: 0 auto;" href="#" )
+    .d-flex.w-100.justify-content-between
+      h3.mb-1= tutor.userName
+      p.mb-1= '$' + tutor.defaultRate
+    p.mb-1= tutor.userSpecialties
+*/
 
 router.get('/', (req, res) => {
       if (!req.session.userId) {

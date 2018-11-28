@@ -3,13 +3,16 @@ extends base.pug
 block header
   .jumbotron
     h1.display3(align="center") T-Bot - Online Tutoring Platform
-    h5.display3(align="center") #{display.logged_in} tutor(s) online right now
+    h5.display3(align="center") #{logged_in} tutor(s) online right now
   
 block content
-  h3.display3(align="center") Tutors Found
-    .list-group
-      for tutor in tutors
-        a.list-group-item.list-group-item-action.flex-column.align-items-start(href="#")
-          .d-flex.w-100.justify-content-between
-            h5.mb-1= tutor.userName
-            p.mb-1= tutor.defaultRate
+  h3.display3(align="center") Tutors
+  for tutor in tutors
+    .card.border-primary.mb-3(style="max-width: 20rem;margin: 0 auto;")
+      .card-header= tutor.userName
+      .card-body
+        h4.card-title= '$'+tutor.defaultRate
+          p 
+          small.card-text= tutor.userSpecialties
+        a.card-link(href="#") Contact
+          
