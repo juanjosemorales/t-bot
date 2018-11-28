@@ -5,17 +5,77 @@ var Sessions = require('../models/Sessions');
 var path = require('path');
 
 var _path = path.join(__dirname + '/../' + '/views/');
-console.log(_path);
 
+router.get('/account', (req, res, next) => {
+  if (!req.session.userId) {
+    display = {
+      welcome_msg: "Please Log In",
+      logged_in: false
+    }
+    res.render(_path + "account.pug", display);
+  } else {
+    User.findById(req.session.userId, (err, user) => {
+      display = {
+        logged_in: true,
+        welcome_msg: "Hi " + user.name,
+        default_rate: user.default_rate,
+        specialties: user.tutoring_specialties
+      }
+      res.render(_path + "account.pug", display);
+    });
+  }
+});
+
+router.post('/account', (req, res, next) => {
+  if(req.session.userId) {
+    var userData = {
+        default_rate: req.body.defaultRate
+    };
+    User.findOneAndUpdate({'_id':req.session.userId}, userData, {new:true}, (err, user) => {
+      if (err) {
+        next(err);
+      }
+      display = {
+        logged_in: true,
+        welcome_msg: "Account Updated Successfully!",
+        default_rate: user.default_rate
+      }
+      req.session.defaultRate = user.default_rate;
+      return res.render(_path + "account.pug", display);
+    });
+  } else {
+    return res.redirect("/account");
+  }
+
+});
+
+
+router.get('/', (req, res) => {
+      if (!req.session.userId) {
+        display = {
+          email: "Guest"
+        };
+        res.render(_path + "index.pug", display);
+      } else {
+        User.findById(req.session.userId, (err, user) => {
+          display = {
+            email: user.name
+          };
+          res.render(_path + "index.pug", display);
+        });
+      }
+});
+
+router.get('/contact', (req, res, next) => {
+  res.render(_path + "contact.pug");
+});
 
 //TODO: Fix Nested Callback and Refactor
 router.post('/tutors', (req,res, next) => {
-
   Sessions.find({}, (err, data) => {
     if(err) {
       return(next(err));
     } else {
-        console.log(req.body);
         tutor_list = [];
         logged_in = 0;
         if(data.length > 0) {
@@ -39,10 +99,8 @@ router.post('/tutors', (req,res, next) => {
               } else {
                 tutoring_specialties = check;
               }
-              console.log(tutoring_specialties);
               if (req.body.specialties) {
                 user_topic = req.body.specialties
-                console.log(user_topic);
                 if (tutoring_specialties.includes(user_topic)) {
                      tutor_list.push({
                         "userName":JSON.parse(data[sess]._doc.session).userName,
@@ -56,31 +114,6 @@ router.post('/tutors', (req,res, next) => {
         res.render(_path + "tutors.pug", {tutors: tutor_list, logged_in: logged_in});
     }
   });
-});
-
-/*
-for tutor in tutors
-  a.list-group-item.list-group-item-action.flex-column.align-items-start(style="width: 20%; margin: 0 auto;" href="#" )
-    .d-flex.w-100.justify-content-between
-      h3.mb-1= tutor.userName
-      p.mb-1= '$' + tutor.defaultRate
-    p.mb-1= tutor.userSpecialties
-*/
-
-router.get('/', (req, res) => {
-      if (!req.session.userId) {
-        display = {
-          email: "Guest"
-        };
-        res.render(_path + "index.pug", display);
-      } else {
-        User.findById(req.session.userId, (err, user) => {
-          display = {
-            email: user.name
-          };
-          res.render(_path + "index.pug", display);
-        });
-      }
 });
 
 router.get('/signup', (req, res, next) => {

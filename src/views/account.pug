@@ -1,0 +1,18 @@
+extends base.pug
+
+block variables
+  - var selected = 'Account';
+          
+block header
+  .jumbotron
+    h3.display3(align="center") #{display.welcome_msg}
+
+block content
+  if display.logged_in
+    form.form-horizontal(action="/account" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
+      fieldset
+        legend(align="center") Your Account 
+        .form-group
+          label(for="defaultRate") Current 30 Minute session rate:
+          input.form-control(value=display.default_rate name="defaultRate" id="defaultRate" type="number" step="0.01")
+      button.btn.btn-primary(type="submit") Update 

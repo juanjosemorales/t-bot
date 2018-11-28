@@ -2,7 +2,7 @@ extends base.pug
       
 block content
   - var education_values = ['High School', 'Undergrad', 'Masters', 'PhD', 'Life Long '];
-  - var tutoring_areas = ['Biology','Computer Science','Engineering','English','History','Math','Physics','Other'];
+  - var tutoring_areas = ['Biology','Chemistry', 'Computer Science','Engineering','English', 'Finance','History','Math','Physics','Other'];
   - var time_sessions = {'30':30,'45':45,'1 hr':60, '1.5 hrs':90, '2 hrs':120, "I don't know":'NaN'};
   form.form-horizontal(action="/tutors" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
     fieldset

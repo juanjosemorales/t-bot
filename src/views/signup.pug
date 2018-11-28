@@ -2,7 +2,7 @@ extends base.pug
 
 block content
   - var education_values = ['High School', 'Undergrad', 'Masters', 'PhD'];
-  - var tutoring_areas = ['Biology','Computer Science','Engineering','English','History','Math','Physics','Other'];
+  - var tutoring_areas = ['Biology','Chemistry', 'Computer Science','Engineering','English', 'Finance','History','Math','Physics','Other'];
   form.form-horizontal(action="/signup" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
     fieldset
       legend Sign Up
@@ -21,9 +21,8 @@ block content
       .form-group
         select.form-control(name="tutorCheck", id="tutorCheck")
           option Yes
-          option No
       .form-group
-        input.form-control(name="defaultRate" id="defaultRate" placeholder="Default 30 Min Session Rate (USD)" type="number")
+        input.form-control(name="defaultRate" id="defaultRate" placeholder="Default 30 Min Session Rate (USD)" type="number" step="0.01")
       .form-group
         label(for="education") Highest Level of Education
         select.form-control(name="education" id="education")
