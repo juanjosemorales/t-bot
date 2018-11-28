@@ -9,10 +9,19 @@ block header
 
 block content
   if display.logged_in
+    h4.display3(style="width: 25%; margin: 0 auto;") Tutoring Areas
+    each ta in display.specialties
+      .list-group(style="width: 25%; margin: 0 auto;")
+        a.list-group-item.list-group-item-action(href="#")= ta
+    hr.my-4
     form.form-horizontal(action="/account" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
       fieldset
-        legend(align="center") Your Account 
         .form-group
-          label(for="defaultRate") Current 30 Minute session rate:
+          label(for="defaultRate") Current 30 Minute Session Rate (USD):
           input.form-control(value=display.default_rate name="defaultRate" id="defaultRate" type="number" step="0.01")
-      button.btn.btn-primary(type="submit") Update 
+        .form-group
+          label(for="specialties") Tutoring Areas:
+          select.form-control(multiple="" name="specialites" id="specialites")
+            each val in tutoring_areas
+              option= val
+      button.btn.btn-primary(type="submit") Update Account
