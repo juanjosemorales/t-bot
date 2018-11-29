@@ -15,8 +15,7 @@ block content
         p.card-title Education: #{display.education}
           p.card-text Tutors in: #{display.specialties}
           p.card-test 30min Rate: $#{display.default_rate}
-          p.card-test Registered ITS: out of scope for this semester
-          
+          p.card-test Registered ITS: *Out of scope for this semester*
     hr.my-4
     form.form-horizontal(action="/account" method="POST" role="form" style="width: 25%; margin: 0 auto;") 
       fieldset
@@ -32,12 +31,16 @@ block content
           label(for="education") Highest Level of Education
           select.form-control(name="education" id="education")
             each val in education_values
-              option= val
+              if val === display.education
+                option(selected="selected")= val
+              else 
+                option= val
       button.btn.btn-primary(type="submit") Update Account
     hr.my-4
     form.form-horizontal(action="#" method="POST" role="form" style="width: 25%; margin: 0 auto;")
       fieldset
-        legend Form for ITS Registration - Out of Scope for Semester
+        legend Form for ITS Registration
+        p.lead *Out of Scope for this Semester* 
         .form-group
           label(for="name") ITS Name
           input.form-control(name="name" id="name" type="text")
