@@ -6,13 +6,16 @@ block header
     h5.display3(align="center") #{logged_in} tutor(s) online right now
   
 block content
-  h3.display3(align="center") Tutors
-  for tutor in tutors
-    .card.border-primary.mb-3(style="max-width: 20rem;margin: 0 auto;")
-      .card-header= tutor.userName
-      .card-body
-        h4.card-title= tutor.defaultRate
-          p 
-          small.card-text= tutor.userSpecialties
-        a.card-link(href="/workspace") Contact
-          
+  if tutor_list.length > 0
+    h3.display3(align="center") Available Tutors
+    for tutor in tutors
+      .card.border-primary.mb-3(style="max-width: 20rem;margin: 0 auto;")
+        .card-header= tutor.userName
+        .card-body
+          h5.card-title= tutor.defaultRate
+            p 
+            small.card-text= tutor.userSpecialties
+          a.card-link(href="/workspace") Contact
+  else 
+    h3.display3(align="center") No Compatible Tutors Found Right Now :(
+            
