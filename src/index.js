@@ -1,8 +1,6 @@
 require('dotenv').config({path:'variables.env'});
 const express = require('express');
 const bodyParser = require('body-parser');
-//const verifyWebhook = require('./verify-webhook');
-//const messageWebhook = require('./message-webhook');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -31,8 +29,10 @@ app.use(session({
 }));
 
 //code for the CHATBOT integration
-//app.get('/bot', verifyWebhook);
-//app.post('/bot', messageWebhook);
+const verifyWebhook = require('./verify-webhook');
+const messageWebhook = require('./message-webhook');
+app.get('/bot', verifyWebhook);
+app.post('/bot', messageWebhook);
 
 var routes = require('./routes/router');
 app.use('/', routes);

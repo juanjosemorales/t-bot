@@ -20,8 +20,6 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 const {FACEBOOK_ACCESS_TOKEN} = process.env;
 
 const sendTextmessage = (userId, text) => {
-  console.log(userId);
-  console.log(text);
   request({
     url:'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token: FACEBOOK_ACCESS_TOKEN},
